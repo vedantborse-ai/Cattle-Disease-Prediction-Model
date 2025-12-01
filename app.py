@@ -81,7 +81,7 @@ st.markdown("""
 @st.cache_resource
 def load_model():
     try:
-        return tf.keras.models.load_model("best_cattle_disease_model.h5")
+        return tf.keras.models.load_model("best_cattle_disease_model")
     except OSError:
         return None
 
