@@ -1,7 +1,9 @@
 import tensorflow as tf
 
-# Load your existing .h5 model
+print("Loading .h5 model...")
 model = tf.keras.models.load_model("best_cattle_disease_model.h5")
 
-# Export as a SavedModel folder (portable across versions)
-model.export("best_cattle_disease_model")
+print("Saving as TensorFlow SavedModel...")
+model.save("saved_model", save_format="tf")
+
+print("Conversion successful!")

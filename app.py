@@ -112,11 +112,20 @@ else:
         # Prediction using TF SavedModel signature
         with st.spinner("Analyzing dermal patterns..."):
             output = infer(tf.constant(img_array))
-            prediction = output["outputs"].numpy()[0]
+
+            # Auto-detect output key
+            output_keys = list(output.keys())
+            if len(output_keys) == 0:
+                st.error("Model returned no outputs — SavedModel is damaged.")
+                st.stop()
+
+            first_key = output_keys[0]
+            prediction = output[first_key].numpy()[0]
 
             idx = np.argmax(prediction)
             disease_name = clean_names[idx]
             confidence = prediction[idx]
+
 
         # --- UI RESULTS ---
         c1, c2 = st.columns([1, 1.2], gap="large")
